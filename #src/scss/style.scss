@@ -1,0 +1,458 @@
+// Подключает файлы шрифтов в конечный файл
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+
+@mixin font($font_name, $file_name, $weight, $style) {
+   @font-face {
+      font-family: $font_name;
+      font-display: swap;
+      src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+      font-weight: #{$weight};
+      font-style: #{$style};
+   }
+}
+
+//<Шрифт по умолчанию>================================================================================================
+
+$fontfamily: "Lato";
+//</Шрифт по умолчанию>===============================================================================================
+
+//<ПЕРЕМЕННЫЕ>========================================================================================================
+$minwidth: 320;
+$maxWidth: 1130;
+//</ПЕРЕМЕННЫЕ>=======================================================================================================
+
+//<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>========================================================================================
+@import "null";
+
+body {
+   color: #000;
+   font-size: 14px;
+   &.lock {
+      overflow: hidden;
+   }
+}
+
+// Подколючение шрифтов
+@import "fonts";
+
+// Подколючение миксинов и готовых стилей
+@import "mixins";
+@import "ui";
+
+//<ОБОЛОЧКА>==========================================================================================================
+.wrapper {
+   overflow: hidden;
+   min-height: 100%;
+}
+//</ОБОЛОЧКА>==================================================================================================================================================================================================================
+
+//<ОСНОВНАЯ СЕТКА>==================================================================================================================================================================================================================
+.container {
+   max-width: $maxWidth + px;
+   padding: 0px 15px;
+   margin: 0px auto;
+}
+//</ОСНОВНАЯ СЕТКА>===================================================================================================
+
+// ibg и подключение файлов стилей
+
+@import "header";
+@import "footer";
+
+.ibg {
+   background-position: center;
+   background-size: cover;
+   background-repeat: no-repeat;
+   position: relative;
+}
+
+.ibg img {
+   width: 0;
+   height: 0;
+   position: absolute;
+   top: 0;
+   left: 0;
+   opacity: 0;
+   visibility: hidden;
+}
+
+.page {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   @include flexbox();
+   flex-direction: column;
+}
+.main-screen {
+   flex: 1 0 100%;
+   position: relative;
+   &__bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+   }
+}
+
+//content container
+.content {
+}
+
+// generation section
+.generation {
+   padding: 120px 0px;
+   background-color: #f7f7f7;
+
+   &__block {
+   }
+
+   @media (max-width: 900px) {
+      padding: 80px 0px;
+   }
+   @media (max-width: 600px) {
+      padding: 30px 0px;
+   }
+}
+
+.block {
+   text-align: center;
+   &__icon {
+      margin: 0px 0px 30px 0px;
+   }
+
+   &__title {
+      color: #353738;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 24px;
+      letter-spacing: 3.6px;
+      margin: 0px 0px 18px 0px;
+   }
+
+   &__text {
+      color: #848789;
+      font-size: 18px;
+      line-height: 34px;
+      &_j {
+         text-align: justify;
+         font-size: 16px;
+         line-height: 30px;
+         &::after {
+            content: "";
+            display: block;
+            margin: 35px auto 0px auto;
+            width: 50px;
+            height: 1px;
+            background-color: #d7d7d7;
+         }
+      }
+   }
+   @media (max-width: 1500px) {
+      &__text {
+         &_j {
+            &:after {
+               margin: 15px auto 0px auto;
+            }
+         }
+      }
+   }
+}
+// generation section end
+
+// brands section
+.brands {
+   &_rev {
+      .brands__column {
+         @include flexorder(1);
+         &_b {
+            @include flexorder(2);
+         }
+      }
+   }
+   &__row {
+      @include flexbox();
+   }
+
+   &__column {
+      flex: 0 1 33.333%;
+      &_b {
+         flex: 0 1 66.667%;
+      }
+   }
+
+   &__content {
+      padding: 70px 65px 55px 65px;
+      position: relative;
+      &::after {
+         content: "";
+         position: absolute;
+         bottom: -10px;
+         left: 50%;
+         margin: 0px 0px 0px -10px;
+         width: 0;
+         height: 0;
+         border-left: 10px solid transparent;
+         border-right: 10px solid transparent;
+         border-top: 10px solid #fff;
+      }
+   }
+   &__image {
+      padding: 0px 0px 37.51% 0px;
+   }
+   @media (max-width: 1500px) {
+      &__content {
+         padding: 40px 35px 30px 35px;
+      }
+   }
+   @media (max-width: 1100px) {
+      &_last {
+         .brands__column {
+            &:nth-child(1) {
+               @include flexorder(2);
+            }
+            &:nth-child(2) {
+               @include flexorder(1);
+            }
+            &:nth-child(3) {
+               @include flexorder(3);
+            }
+         }
+      }
+      &__row {
+         flex-direction: column;
+      }
+   }
+}
+.item {
+   height: 100%;
+   display: block;
+   position: relative;
+   &__logo {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      @include flexbox();
+      flex-direction: column;
+      @include anim(0.3s, 0s);
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(100, 194, 158, 0.5);
+      z-index: 2;
+      opacity: 0;
+      visibility: hidden;
+      span {
+         margin: 10px 0px 0px 0px;
+         font-size: 14px;
+         font-weight: 700;
+         letter-spacing: 2.8px;
+         text-transform: uppercase;
+         color: #fff;
+      }
+   }
+   &__image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+   }
+   &:hover {
+      .item__logo {
+         opacity: 1;
+         visibility: visible;
+      }
+   }
+}
+// brands section end
+
+// slider section
+.slider {
+   background-color: #f7f7f7;
+   padding: 120px 0 60px 0;
+   text-align: center;
+   &__body {
+   }
+
+   &__item {
+   }
+
+   &__icon {
+      margin: 0px 0px 35px 0px;
+      display: inline-block;
+   }
+
+   &__title {
+      margin: 0px 0px 20px 0px;
+      color: #353738;
+      font-family: Lato;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      span {
+         color: #848789;
+         font-weight: 300;
+      }
+   }
+
+   &__text {
+      color: #848789;
+      font-size: 24px;
+      font-style: italic;
+      line-height: 34px;
+   }
+}
+.container {
+}
+// slider section end
+
+// shop section
+.shop {
+   &__body {
+      @include flexbox();
+   }
+   &__column {
+      flex: 0 1 16.666%;
+      &_b {
+         flex: 0 1 33.333%;
+      }
+   }
+   &__block {
+   }
+   &__footer {
+      padding: 75px 0;
+      text-align: center;
+      background-color: #282f35;
+   }
+   &__btn {
+      display: inline-block;
+      height: 50px;
+      line-height: 48px;
+      letter-spacing: 2.8px;
+      color: #fff;
+      padding: 0px 60px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+   }
+
+   @media (max-width: 1100px) {
+      &__body {
+         flex-wrap: wrap;
+      }
+      &__column {
+         flex: 0 1 50%;
+         &:first-child {
+            flex: 1 1 100%;
+         }
+         &:last-child {
+            flex: 1 1 100%;
+         }
+      }
+      &__footer {
+         padding: 50px 0;
+      }
+      &__btn {
+         padding: 0px 30px;
+      }
+   }
+}
+.block-shop {
+   height: 100%;
+   &__row {
+      @include flexbox();
+   }
+
+   &__column {
+      flex: 0 1 50%;
+   }
+
+   &__item {
+      height: auto;
+      padding-bottom: 50%;
+      &_b {
+         padding: 0px 0px 200.5% 0px;
+      }
+      &_l {
+         padding: 0px 0px 100% 0px;
+      }
+   }
+}
+// shop section end
+
+// subscribe section
+.subscribe {
+   &__body {
+      padding: 110px 0;
+      max-width: 534px;
+      margin: 0px auto;
+      text-align: center;
+   }
+   &__logo {
+      margin: 0px 0px 39px 0px;
+   }
+   &__label {
+      color: #848789;
+      font-size: 24px;
+      font-style: italic;
+      margin: 0px 0px 35px 0px;
+   }
+   &__form {
+      @include flexbox();
+   }
+   &__input {
+      flex: 1 1 auto;
+      padding: 0px 8px 0px 0px;
+      .input {
+         width: 100%;
+         height: 69px;
+         border: 1px solid #d3d7d9;
+         background-color: #ffffff;
+         padding: 0px 28px;
+         color: #929292;
+         font-size: 20px;
+         font-style: italic;
+         &.focus {
+            font-style: normal;
+            color: #333;
+         }
+         &.err {
+            border: 1px solid red;
+         }
+      }
+   }
+   &__button {
+      flex: 0 0 126px;
+   }
+   &__btn {
+      width: 100%;
+      height: 69px;
+      line-height: 69px;
+      color: #fff;
+      font-size: 24px;
+      text-transform: uppercase;
+      font-weight: 300;
+      background-color: #64c29e;
+   }
+   @media (max-width: 750px) {
+      &__body {
+         padding: 50px 0;
+      }
+   }
+   @media (max-width: 500px) {
+      &__form {
+         display: block;
+      }
+      &__input {
+         padding: 0px 0px 8px 0px;
+      }
+   }
+}
+// subscribe section end
